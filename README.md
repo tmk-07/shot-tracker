@@ -2,7 +2,7 @@
 
 A simple tool to keep track of makes and misses, designed for basketball shooting sessions
 
-## Demo
+## Acess Site
 [https://shot-tracker.timmykim07.workers.dev/](https://shot-tracker.timmykim07.workers.dev/)
 
 ## Features
