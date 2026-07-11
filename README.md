@@ -3,7 +3,7 @@
 A simple tool to keep track of makes and misses, designed for basketball shooting sessions
 
 ## Acess Site
-[https://shot-tracker.timmykim07.workers.dev/](https://shot-tracker.timmykim07.workers.dev/)
+[https://shooters.tkimify.com/](shooters.tkimify.com/)
 
 ## Features
 
