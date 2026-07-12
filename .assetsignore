@@ -8,6 +8,7 @@
 .codex/**
 .DS_Store
 **/.DS_Store
+.gitignore
 HANDOFF.md
 README.md
 wrangler.jsonc
