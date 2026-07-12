@@ -2,270 +2,149 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Basketball Shot Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#f6f2ea" />
+  <title>Shot Tracker</title>
+  <link rel="icon" type="image/png" href="assets/shot-tracker-logo.png" />
+  <link rel="apple-touch-icon" href="assets/shot-tracker-logo.png" />
   <style>
     :root {
-      --bg: #0f172a;
-      --card: #111827;
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --make: #16a34a;
-      --miss: #dc2626;
-      --reset: #334155;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-      --radius: 22px;
+      --ink:#18201d; --muted:#6f7773; --paper:#f6f2ea; --card:#fffdf8; --line:#d9d5cb;
+      --green:#1e6b4f; --green-2:#dcebe3; --orange:#e66a3b; --red:#c84d43; --gold:#e6b84a;
+      --shadow:0 18px 50px rgba(35,45,40,.09); --radius:24px;
     }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      padding: 20px;
-    }
-
-    .app {
-      width: min(100%, 420px);
-      background: rgba(17, 24, 39, 0.96);
-      backdrop-filter: blur(10px);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .title {
-      font-size: 1.7rem;
-      font-weight: 800;
-      margin: 0 0 8px;
-      text-align: center;
-    }
-
-    .subtitle {
-      margin: 0 0 22px;
-      color: var(--muted);
-      text-align: center;
-      font-size: 0.98rem;
-    }
-
-    .stat-card {
-      background: rgba(255, 255, 255, 0.04);
-      border-radius: 18px;
-      padding: 22px 18px;
-      text-align: center;
-      margin-bottom: 18px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .main-stat {
-      font-size: 2.3rem;
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      margin-bottom: 6px;
-    }
-
-    .sub-stat {
-      color: var(--muted);
-      font-size: 1rem;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin: 18px 0 14px;
-    }
-
-    button {
-      appearance: none;
-      border: none;
-      border-radius: 18px;
-      padding: 20px 16px;
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: white;
-      cursor: pointer;
-      transition: transform 0.08s ease, opacity 0.15s ease;
-      min-height: 86px;
-      touch-action: manipulation;
-    }
-
-    button:active {
-      transform: scale(0.98);
-    }
-
-    .make {
-      background: var(--make);
-    }
-
-    .miss {
-      background: var(--miss);
-    }
-
-    .secondary-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 8px;
-    }
-
-    .secondary {
-      background: var(--reset);
-      min-height: 58px;
-      font-size: 0.98rem;
-      font-weight: 700;
-      border-radius: 14px;
-    }
-
-    .tiny-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .tiny-box {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 14px;
-      padding: 12px 8px;
-      text-align: center;
-    }
-
-    .tiny-label {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 5px;
-    }
-
-    .tiny-value {
-      font-size: 1.1rem;
-      font-weight: 800;
-    }
-
-    .footer {
-      margin-top: 16px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.82rem;
-    }
+    *{box-sizing:border-box}
+    html{background:var(--paper)}
+    body{margin:0;min-height:100vh;display:flex;flex-direction:column;background:var(--paper);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);-webkit-tap-highlight-color:transparent}
+    button{font:inherit;transition:border-color .16s ease,box-shadow .16s ease,background-color .16s ease,color .16s ease,transform .08s ease}button:hover{border-color:rgba(30,107,79,.48);box-shadow:0 0 0 3px rgba(30,107,79,.08)}button:focus-visible{outline:3px solid rgba(30,107,79,.24);outline-offset:2px}
+    .shell{width:min(100%,540px);flex:1 0 auto;margin:0 auto;padding:max(18px,env(safe-area-inset-top)) 18px 28px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .brand{display:flex;align-items:center;gap:10px;font-size:1.05rem;font-weight:850;letter-spacing:-.02em}
+    .brand-mark{display:grid;place-items:center;width:44px;height:44px}.brand-mark img{display:block;width:44px;height:44px;object-fit:contain}
+    .session-pill{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:8px 11px;font-size:.75rem;font-weight:750}
+    .eyebrow{text-transform:uppercase;letter-spacing:.13em;font-size:.67rem;font-weight:850;color:var(--green);margin:0 0 5px}
+    h1{font-size:clamp(1.65rem,7vw,2.35rem);line-height:1.05;letter-spacing:-.055em;margin:0}
+    .lede{color:var(--muted);font-size:.9rem;line-height:1.45;margin:7px 0 16px}
+    .live-strip{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:8px;margin-bottom:12px}
+    .live-cell{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:10px 12px;box-shadow:0 8px 25px rgba(35,45,40,.04)}
+    .live-cell strong{display:block;font-size:1.12rem;letter-spacing:-.04em}.live-cell span{font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:800}
+    .court-card{position:relative;background:#fff;border:1px solid #d8d5cf;border-radius:26px;overflow:hidden;box-shadow:var(--shadow)}
+    .court-hint{position:absolute;z-index:2;left:12px;top:12px;background:rgba(255,253,248,.88);backdrop-filter:blur(8px);border:1px solid rgba(24,32,29,.1);border-radius:999px;padding:7px 10px;font-size:.68rem;font-weight:800;pointer-events:none}
+    #court{display:block;width:100%;height:auto;touch-action:manipulation;cursor:crosshair}.court-card-actions{display:flex;justify-content:flex-end;padding:8px 12px 12px;background:#fffdf8;border-top:1px solid rgba(24,32,29,.08)}
+    .court-line{fill:none;stroke:#fffdf8;stroke-width:3;vector-effect:non-scaling-stroke;opacity:.92}
+    .wood-line{stroke:#c5ad87;stroke-width:1;opacity:.34}.shot-dot{pointer-events:none}.selected-ring{pointer-events:none;filter:drop-shadow(0 2px 3px rgba(0,0,0,.2))}
+    .location-row{display:flex;align-items:center;gap:9px;margin:12px 0}.location-label{font-size:.72rem;color:var(--muted);font-weight:800;margin-right:auto;white-space:nowrap}
+    .chip{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;min-height:38px;padding:0 13px;font-size:.75rem;font-weight:800;cursor:pointer}.chip:hover{border-color:var(--green);color:var(--green)}
+    .chip.active{background:var(--ink);border-color:var(--ink);color:white}
+    .action-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.shot-button{appearance:none;border:1px solid transparent;border-radius:20px;min-height:76px;font-size:1.05rem;font-weight:900;letter-spacing:.03em;cursor:pointer;box-shadow:0 8px 22px rgba(35,45,40,.07);touch-action:manipulation}.shot-button:active{transform:scale(.98)}.shot-button:disabled{opacity:.45}.make{background:#dcebe3;color:#174f3c;border-color:#bfd8ca}.make:hover{background:#d2e6da;border-color:#1e6b4f;box-shadow:0 0 0 3px rgba(30,107,79,.1)}.miss{background:#f2dfdc;color:#8a3732;border-color:#e4beb9}.miss:hover{background:#edd4d0;border-color:#c84d43;box-shadow:0 0 0 3px rgba(200,77,67,.1)}
+    .small-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.subtle-button,.end-button,.download{appearance:none;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:15px;min-height:45px;font-size:.78rem;font-weight:820;cursor:pointer}.end-button{background:#e7f0eb;border-color:#c9ddd1;color:#1e6b4f}.end-button:hover{background:#dcebe3;border-color:#1e6b4f}.subtle-button:hover{background:#f4f1ea}
+    .feedback{height:21px;margin:8px 0 0;text-align:center;color:var(--muted);font-size:.73rem;font-weight:700}
+    .hidden{display:none!important}
+    .analysis-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}.back{appearance:none;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:10px 12px;font-weight:800;cursor:pointer}
+    .hero-stat{background:#e7f0eb;color:var(--ink);border:1px solid #d4e3da;border-radius:28px;padding:22px;margin-bottom:12px;box-shadow:0 12px 34px rgba(35,65,50,.07)}.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.hero-stat .big{color:var(--green);font-size:3.25rem;line-height:1;font-weight:900;letter-spacing:-.07em}.hero-stat .meta{color:var(--muted);font-size:.78rem;margin-top:6px}.grade{background:rgba(255,255,255,.74);border:1px solid rgba(30,107,79,.12);border-radius:16px;padding:8px 11px;font-size:.68rem;font-weight:850;line-height:1.35;white-space:nowrap}.streak-grid{display:grid;grid-template-columns:auto 1.4em;column-gap:8px;text-align:left}.streak-grid b{text-align:right}
+    .breakdown{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:18px}.break-card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:12px 8px}.break-card:nth-child(1){background:#f1f6f2}.break-card:nth-child(2){background:#f8f3e9}.break-card:nth-child(3){background:#f4f1f7}.break-card:nth-child(4){background:#edf4f6}.break-card span{display:block;color:var(--muted);font-size:.59rem;font-weight:800;text-transform:uppercase;white-space:nowrap}.break-card strong{font-size:1.08rem;letter-spacing:-.04em}.break-card small{display:block;color:var(--muted);font-size:.65rem;margin-top:2px}
+    .chart-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:15px;margin-bottom:12px}.chart-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:11px}.chart-title{margin:0;font-size:1rem;letter-spacing:-.025em}.chart-desc{margin:3px 0 0;color:var(--muted);font-size:.7rem;line-height:1.35}.download{min-height:33px;padding:0 10px;border-radius:10px;color:var(--green);white-space:nowrap}.chart{display:block;width:100%;height:auto;background:#fbf5df;border-radius:15px;overflow:hidden}.legend{display:flex;align-items:center;gap:11px;margin-top:9px;color:var(--muted);font-size:.67rem}.key{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}.gradient{height:7px;flex:1;border-radius:999px;background:linear-gradient(90deg,#d98278,#edb9b2,#f1dfa9,#8fc2a5)}
+    .summary-actions{display:grid;grid-template-columns:1.25fr 1fr;gap:9px;margin:16px 0}.summary-actions button{min-height:48px}.new-session{background:#edf4f6;color:#276174;border-color:#cfe0e6}.new-session:hover{background:#e1eef1;border-color:#6294a5}#endBtn{background:#f5e5e2;color:#944039;border-color:#e6c6c1}#endBtn:hover{background:#efd8d4;border-color:#c84d43}#summaryBtn{background:#e7f0eb;color:#1e6b4f;border-color:#c9ddd1}
+    #undoBtn,#endBtn,#summaryBtn,#newBtn{background:var(--card);border-color:var(--line);color:var(--ink);box-shadow:none}#undoBtn:hover,#endBtn:hover,#summaryBtn:hover,#newBtn:hover{background:var(--card);border-color:rgba(30,107,79,.48);color:var(--ink);box-shadow:0 0 0 3px rgba(30,107,79,.08)}#undoBtn:active,#endBtn:active,#summaryBtn:active,#newBtn:active{transform:scale(.99)}
+    .modal-wrap{position:fixed;inset:0;z-index:20;display:grid;place-items:end center;background:rgba(24,32,29,.38);padding:16px}.modal{width:min(100%,504px);background:var(--card);border-radius:26px;padding:21px;box-shadow:0 30px 80px rgba(0,0,0,.22);animation:rise .18s ease-out}.modal h2{margin:0;font-size:1.25rem}.modal p{color:var(--muted);font-size:.83rem;line-height:1.45}.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:18px}.modal-actions button{border:0;border-radius:15px;min-height:48px;font-weight:850;cursor:pointer}.cancel{background:#ebe8e0;color:var(--ink)}.confirm{background:var(--ink);color:white}@keyframes rise{from{transform:translateY(18px);opacity:.7}}
+    .empty{display:grid;place-items:center;min-height:180px;text-align:center;color:var(--muted);font-size:.8rem;padding:20px}
+    .toast{position:fixed;z-index:30;left:50%;bottom:max(24px,env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--ink);color:white;border-radius:999px;padding:10px 15px;font-size:.75rem;font-weight:800;opacity:0;pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    .page-footer{width:100%;flex-shrink:0;text-align:center;padding:0 18px max(18px,env(safe-area-inset-bottom));margin-top:auto}.footer-social-row{display:flex;align-items:center;justify-content:center}.tkimify-link{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;color:#9a9ca8;opacity:.75;text-decoration:none;background:currentColor;-webkit-mask:url("assets/tkimifylight.png") center / 14px 14px no-repeat;mask:url("assets/tkimifylight.png") center / 14px 14px no-repeat}.tkimify-link:hover{color:#f1dfa9;opacity:1}.tkimify-icon{width:14px;height:14px;display:block;opacity:0}
+    @media(min-width:720px){.shell{width:min(100%,820px)}#trackerView .tracker-layout{display:grid;grid-template-columns:1.22fr .78fr;gap:18px;align-items:start}#trackerView .control-panel{position:sticky;top:18px}.analysis-charts{display:grid;grid-template-columns:1fr 1fr;gap:12px}.chart-card{margin:0}.summary-actions{max-width:420px;margin-left:auto}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
   </style>
 </head>
 <body>
-  <main class="app">
-    <h1 class="title">🏀 Shot Tracker</h1>
-    <p class="subtitle">Tap make or miss. Your totals save automatically on this device.</p>
-
-    <section class="stat-card">
-      <div id="mainStat" class="main-stat">0 / 0</div>
-      <div id="subStat" class="sub-stat">FG%: 0.0%</div>
-    </section>
-
-    <section class="grid">
-      <button class="make" id="makeBtn">MAKE</button>
-      <button class="miss" id="missBtn">MISS</button>
-    </section>
-
-    <section class="secondary-row">
-      <button class="secondary" id="undoBtn">Undo Last</button>
-      <button class="secondary" id="resetBtn">Reset</button>
-    </section>
-
-    <section class="tiny-stats">
-      <div class="tiny-box">
-        <div class="tiny-label">Makes</div>
-        <div id="makesValue" class="tiny-value">0</div>
-      </div>
-      <div class="tiny-box">
-        <div class="tiny-label">Misses</div>
-        <div id="missesValue" class="tiny-value">0</div>
-      </div>
-      <div class="tiny-box">
-        <div class="tiny-label">Total</div>
-        <div id="totalValue" class="tiny-value">0</div>
+  <main class="shell">
+    <section id="trackerView">
+      <header class="topbar"><div class="brand"><span class="brand-mark" aria-hidden="true"><img src="assets/shot-tracker-logo.png" alt="" /></span> Shot Tracker</div><span class="session-pill" id="sessionTime">Session · 0:00</span></header>
+      <p class="eyebrow">Live session</p><p class="lede">Tap the court once, then log makes and misses from the same spot until you move.</p>
+      <div class="tracker-layout">
+        <div>
+          <div class="live-strip"><div class="live-cell"><span>Overall</span><strong id="livePct">—</strong></div><div class="live-cell"><span>Makes</span><strong id="liveMakes">0</strong></div><div class="live-cell"><span>Shots</span><strong id="liveShots">0</strong></div></div>
+          <div class="court-card"><div class="court-hint" id="courtHint">Tap to place shot</div><svg id="court" viewBox="0 0 500 470" role="img" aria-label="Interactive basketball half court"></svg><div class="court-card-actions"><button class="chip" id="ftBtn">Free throw</button></div></div>
+        </div>
+        <div class="control-panel">
+          <div class="location-row"><span class="location-label" id="locationText">No spot selected</span></div>
+          <div class="action-grid"><button class="shot-button make" id="makeBtn" disabled>MAKE</button><button class="shot-button miss" id="missBtn" disabled>MISS</button></div>
+          <p class="feedback" id="feedback" aria-live="polite">Tap the court or choose free throw</p>
+          <div class="small-actions"><button class="subtle-button" id="undoBtn">Undo last</button><button class="end-button" id="endBtn">End session</button></div>
+        </div>
       </div>
     </section>
 
-    <p class="footer">Works great as a home-screen app on iPhone or Android.</p>
+    <section id="analysisView" class="hidden">
+      <div class="analysis-head"><div><p class="eyebrow">Session analysis</p><h1>Your shot profile</h1></div><button class="back" id="backBtn">← Court</button></div>
+      <section class="hero-stat"><div class="hero-top"><div><div class="big" id="finalPct">0%</div><div class="meta" id="finalMeta">0 makes · 0 attempts</div></div><div class="grade" id="volumeGrade">Session complete</div></div></section>
+      <section class="breakdown" id="breakdown"></section>
+      <div class="analysis-charts">
+        <section class="chart-card"><div class="chart-title-row"><div><h2 class="chart-title">Zone efficiency</h2><p class="chart-desc">Court split into practical scoring regions.</p></div><button class="download" data-chart="zones">↓ PNG</button></div><svg class="chart" id="zonesChart" viewBox="0 0 500 470"></svg><div class="legend"><span>Below session avg</span><div class="gradient"></div><span>Above</span></div></section>
+        <section class="chart-card"><div class="chart-title-row"><div><h2 class="chart-title">Every attempt</h2><p class="chart-desc">Exact locations, separated by outcome.</p></div><button class="download" data-chart="scatter">↓ PNG</button></div><svg class="chart" id="scatterChart" viewBox="0 0 500 470"></svg><div class="legend"><span><i class="key" style="background:#1e6b4f"></i>Make</span><span><i class="key" style="background:#c84d43"></i>Miss</span></div></section>
+      </div>
+      <div class="summary-actions"><button class="end-button" id="summaryBtn">↓ Download summary</button><button class="subtle-button new-session" id="newBtn">New session</button></div>
+    </section>
   </main>
-
+  <footer class="page-footer">
+    <div class="footer-social-row">
+      <a class="tkimify-link" href="https://tkimify.com" target="_blank" rel="noopener noreferrer" aria-label="tkimify">
+        <img class="tkimify-icon" src="assets/tkimifylight.png" alt="">
+      </a>
+    </div>
+  </footer>
+  <div class="modal-wrap hidden" id="endModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><h2 id="modalTitle">Finish this session?</h2><p id="modalCopy">Your shots are saved on this device. We’ll turn them into a detailed shot profile.</p><div class="modal-actions"><button class="cancel" id="cancelEnd">Keep shooting</button><button class="confirm" id="confirmEnd">View analysis</button></div></div></div>
+  <div class="toast" id="toast">Saved</div>
   <script>
-    const STORAGE_KEY = 'shot-tracker-v1';
-
-    function loadState() {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return { makes: 0, misses: 0, history: [] };
-      try {
-        return JSON.parse(raw);
-      } catch {
-        return { makes: 0, misses: 0, history: [] };
-      }
-    }
-
-    const state = loadState();
-
-    const mainStat = document.getElementById('mainStat');
-    const subStat = document.getElementById('subStat');
-    const makesValue = document.getElementById('makesValue');
-    const missesValue = document.getElementById('missesValue');
-    const totalValue = document.getElementById('totalValue');
-
-    document.getElementById('makeBtn').addEventListener('click', () => addShot('make'));
-    document.getElementById('missBtn').addEventListener('click', () => addShot('miss'));
-    document.getElementById('undoBtn').addEventListener('click', undoLast);
-    document.getElementById('resetBtn').addEventListener('click', resetAll);
-
-    function saveState() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    }
-
-    function addShot(type) {
-      if (type === 'make') state.makes += 1;
-      if (type === 'miss') state.misses += 1;
-      state.history.push(type);
-      saveState();
-      render();
-    }
-
-    function undoLast() {
-      const last = state.history.pop();
-      if (!last) return;
-      if (last === 'make' && state.makes > 0) state.makes -= 1;
-      if (last === 'miss' && state.misses > 0) state.misses -= 1;
-      saveState();
-      render();
-    }
-
-    function resetAll() {
-      const ok = confirm('Reset all shots?');
-      if (!ok) return;
-      state.makes = 0;
-      state.misses = 0;
-      state.history = [];
-      saveState();
-      render();
-    }
-
-    function render() {
-      const total = state.makes + state.misses;
-      const pct = total === 0 ? 0 : (state.makes / total) * 100;
-
-      mainStat.textContent = `${state.makes} / ${total}`;
-      subStat.textContent = `FG%: ${pct.toFixed(1)}%`;
-      makesValue.textContent = state.makes;
-      missesValue.textContent = state.misses;
-      totalValue.textContent = total;
-    }
-
-    render();
+    const KEY='shot-tracker-v3';
+    const COLORS={ink:'#18201d',paper:'#f6f2ea',court:'#ead7b6',line:'#fffdf8',green:'#1e6b4f',red:'#c84d43',blue:'#2c5d73',gold:'#e7bc50',orange:'#df6242'};
+    let COURT_ASSET='assets/half-court-map.png', LOGO_ASSET='assets/shot-tracker-logo.png';
+    const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+    function fresh(){return{startedAt:Date.now(),shots:[],selected:null,ended:false}}
+    function load(){try{const s=JSON.parse(localStorage.getItem(KEY));return s&&Array.isArray(s.shots)?s:fresh()}catch{return fresh()}}
+    let state=load(), timer;
+    function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+    function courtBase(extra=''){return `<rect width="500" height="470" fill="#fbf5df"/><image href="${COURT_ASSET}" x="0" y="0" width="500" height="470" preserveAspectRatio="xMidYMid slice" style="mix-blend-mode:multiply"/>${extra}`}
+    function mappedShots(){return state.shots.filter(s=>s.type!=='freeThrow'&&Number.isFinite(s.x)&&Number.isFinite(s.y))}
+    const COURT={viewBox:{w:500,h:470},outer:{left:43.5,right:458,top:50.5,bottom:420},paint:{left:201.5,right:300,top:50.5,ftLineY:200},hoop:{x:250.5,y:87},archCenter:{x:250.542,y:108.563},archRadius:169.811,three:{leftX:79,rightX:422.5,verticalTopY:50.5,verticalEndY:112.5},zones:{cornerZoneBottomY:143,sideSplitY:171.5,centerThreeFlareDeg:10,centerThreeFlareDx:38.007}};
+    function archPoint(angleDeg){const a=angleDeg*Math.PI/180;return{x:COURT.archCenter.x+COURT.archRadius*Math.cos(a),y:COURT.archCenter.y+COURT.archRadius*Math.sin(a)}}
+    function archAtY(y,side){const dy=y-COURT.archCenter.y,dx=Math.sqrt(Math.max(0,COURT.archRadius**2-dy**2)),x=side==='left'?COURT.archCenter.x-dx:COURT.archCenter.x+dx;return archPoint(Math.atan2(y-COURT.archCenter.y,x-COURT.archCenter.x)*180/Math.PI)}
+    function archAtX(x){const dy=Math.sqrt(Math.max(0,COURT.archRadius**2-(x-COURT.archCenter.x)**2));return archPoint(Math.atan2(dy,x-COURT.archCenter.x)*180/Math.PI)}
+    function arcX(y,side){return y<COURT.three.verticalEndY?(side==='left'?COURT.three.leftX:COURT.three.rightX):archAtY(y,side).x}
+    function arcPath(p,sweep=0){return`A${COURT.archRadius} ${COURT.archRadius} 0 0 ${sweep} ${p.x} ${p.y}`}
+    function pt(p){return`${p.x} ${p.y}`}
+    function isOutsideArc(p){if(p.y<COURT.three.verticalEndY)return p.x<COURT.three.leftX||p.x>COURT.three.rightX;return(p.x-COURT.archCenter.x)**2+(p.y-COURT.archCenter.y)**2>COURT.archRadius**2}
+    function classify(p){if(p.type==='freeThrow')return'freeThrow';const d=Math.hypot((p.x-250)/8.4,(p.y-128)/8);if(d<=8)return'layup';return isOutsideArc(p)?'three':'midrange'}
+    const labels={layup:'Layup',midrange:'Midrange',three:'3-pointer',freeThrow:'Free throw'};
+    function renderCourt(){const dots=mappedShots().slice(-80).map(s=>`<circle class="shot-dot" cx="${s.x}" cy="${s.y}" r="${s.made?4:3.5}" fill="${s.made?COLORS.green:COLORS.red}" opacity=".45"/>`).join('');const sel=state.selected&&state.selected.type!=='freeThrow'?`<circle class="selected-ring" cx="${state.selected.x}" cy="${state.selected.y}" r="12" fill="${COLORS.ink}" stroke="white" stroke-width="4"/><circle cx="${state.selected.x}" cy="${state.selected.y}" r="3" fill="white"/>`:'';$('#court').innerHTML=courtBase(dots+sel)}
+    function stats(shots=state.shots){const makes=shots.filter(s=>s.made).length,total=shots.length;return{makes,total,pct:total?makes/total*100:0}}
+    function longestMakeStreak(shots=state.shots){let best=0,run=0;shots.forEach(s=>{run=s.made?run+1:0;if(run>best)best=run});return best}
+    function longestMissStreak(shots=state.shots){let best=0,run=0;shots.forEach(s=>{run=s.made?0:run+1;if(run>best)best=run});return best}
+    function setSelected(p,source='court'){state.selected=p.type==='freeThrow'?{type:'freeThrow',source:'freeThrow'}:{x:+Math.max(COURT.outer.left,Math.min(COURT.outer.right,p.x)).toFixed(1),y:+Math.max(COURT.outer.top,Math.min(COURT.outer.bottom,p.y)).toFixed(1),source};save();renderTracker()}
+    function renderTracker(){const s=stats();$('#livePct').textContent=s.total?`${s.pct.toFixed(1)}%`:'—';$('#liveMakes').textContent=s.makes;$('#liveShots').textContent=s.total;const has=!!state.selected;$('#makeBtn').disabled=$('#missBtn').disabled=!has;$('#locationText').textContent=has?labels[classify(state.selected)]:'No spot selected';$('#courtHint').textContent=state.selected?.type==='freeThrow'?'Free throw mode':has?'Tap to move spot':'Tap to place shot';$('#ftBtn').classList.toggle('active',state.selected?.type==='freeThrow');renderCourt();updateClock()}
+    function updateClock(){const sec=Math.max(0,Math.floor(((state.endedAt||Date.now())-state.startedAt)/1000));$('#sessionTime').textContent=`Session · ${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`}
+    $('#court').addEventListener('pointerdown',e=>{const r=e.currentTarget.getBoundingClientRect();setSelected({x:(e.clientX-r.left)/r.width*500,y:(e.clientY-r.top)/r.height*470})});
+    $('#ftBtn').addEventListener('click',()=>setSelected({type:'freeThrow'},'freeThrow'));
+    function addShot(made){if(!state.selected)return;const type=classify(state.selected),shot=type==='freeThrow'?{made,type,t:Date.now()}:{x:state.selected.x,y:state.selected.y,made,type,t:Date.now()};state.shots.push(shot);save();$('#feedback').textContent=`${made?'Made':'Missed'} ${labels[type].toLowerCase()}`;renderTracker();if(navigator.vibrate)navigator.vibrate(made?[18]:[12,35,12])}
+    $('#makeBtn').onclick=()=>addShot(true);$('#missBtn').onclick=()=>addShot(false);
+    $('#undoBtn').onclick=()=>{const shot=state.shots.pop();if(!shot){$('#feedback').textContent='Nothing to undo';return}save();$('#feedback').textContent='Last shot removed';renderTracker()};
+    $('#endBtn').onclick=()=>{if(!state.shots.length){$('#feedback').textContent='Log at least one shot first';return}$('#endModal').classList.remove('hidden')};$('#cancelEnd').onclick=()=>$('#endModal').classList.add('hidden');
+    $('#confirmEnd').onclick=()=>{state.ended=true;state.endedAt=Date.now();save();$('#endModal').classList.add('hidden');showAnalysis()};
+    $('#backBtn').onclick=()=>{$('#analysisView').classList.add('hidden');$('#trackerView').classList.remove('hidden');scrollTo(0,0)};
+    $('#newBtn').onclick=()=>{if(!confirm('Start a new session? Your completed session will be replaced on this device.'))return;state=fresh();save();$('#analysisView').classList.add('hidden');$('#trackerView').classList.remove('hidden');$('#feedback').textContent='Tap the court or choose free throw';renderTracker();scrollTo(0,0)};
+    function zoneFor(s){const x=s.x,y=s.y,p=COURT.paint,z=COURT.zones,arcL=archAtX(p.left),arcR=archAtX(p.right);if(x>=p.left&&x<=p.right&&y<=p.ftLineY)return'paint';const outside=isOutsideArc(s);if(outside&&y<z.cornerZoneBottomY&&x<arcX(y,'left'))return'leftCorner';if(outside&&y<z.cornerZoneBottomY&&x>arcX(y,'right'))return'rightCorner';if(outside){const arcY=(arcL.y+arcR.y)/2,span=Math.max(1,COURT.outer.bottom-arcY),t=Math.max(0,Math.min(1,(y-arcY)/span)),left=arcL.x-z.centerThreeFlareDx*t,right=arcR.x+z.centerThreeFlareDx*t;if(x<left)return'left3';if(x>right)return'right3';return'top3'}if(y<z.sideSplitY){if(x<p.left)return'leftBaseline';if(x>p.right)return'rightBaseline'}if(x<p.left)return'leftMid';if(x>p.right)return'rightMid';return'centerMid'}
+    function colorScale(delta){const t=Math.max(-1,Math.min(1,delta));if(t<-.35)return'#d98278';if(t<0)return'#edb9b2';if(t<.35)return'#f1dfa9';return'#8fc2a5'}
+    function blendedColor(hex,alpha,bg='#fbf5df'){const h=hex.replace('#',''),b=bg.replace('#',''),mix=i=>Math.round(parseInt(h.slice(i,i+2),16)*alpha+parseInt(b.slice(i,i+2),16)*(1-alpha)).toString(16).padStart(2,'0');return`#${mix(0)}${mix(2)}${mix(4)}`}
+    function textNode(x,y,a,b,fill='#18201d',size=15){return `<text x="${x}" y="${y}" text-anchor="middle" fill="${fill}" font-family="Inter,system-ui" font-weight="850" font-size="${size}">${a}</text><text x="${x}" y="${y+size+3}" text-anchor="middle" fill="${fill}" opacity=".74" font-family="Inter,system-ui" font-weight="700" font-size="${Math.max(9,size-4)}">${b}</text>`}
+    function renderScatter(){const seen={};const pts=mappedShots().map(s=>{const key=`${s.x.toFixed(1)}:${s.y.toFixed(1)}`,i=seen[key]||0;seen[key]=i+1;const dist=i?Math.min(14,2.3*Math.sqrt(i)):0,angle=i*2.399963,x=s.x+Math.cos(angle)*dist,y=s.y+Math.sin(angle)*dist;return `<circle cx="${x}" cy="${y}" r="3.6" fill="${s.made?COLORS.green:COLORS.red}" stroke="white" stroke-width=".8"/>`}).join('');$('#scatterChart').innerHTML=courtBase(pts)}
+    function renderZones(){const groups={};mappedShots().forEach(s=>(groups[zoneFor(s)]??=[]).push(s));const all=stats(mappedShots()),o=COURT.outer,p=COURT.paint,t=COURT.three,z=COURT.zones,aStartL=archAtY(t.verticalEndY,'left'),aStartR=archAtY(t.verticalEndY,'right'),aCornerL=archAtY(z.cornerZoneBottomY,'left'),aCornerR=archAtY(z.cornerZoneBottomY,'right'),aSideL=archAtY(z.sideSplitY,'left'),aSideR=archAtY(z.sideSplitY,'right'),aPaintL=archAtX(p.left),aPaintR=archAtX(p.right),deepL={x:aPaintL.x-z.centerThreeFlareDx,y:o.bottom},deepR={x:aPaintR.x+z.centerThreeFlareDx,y:o.bottom},inside=`M${t.leftX} ${o.top}H${t.rightX}V${t.verticalEndY}L${pt(aStartR)}${arcPath(aStartL,1)}L${t.leftX} ${t.verticalEndY}Z`,outside=`M${o.left} ${o.top}H${o.right}V${o.bottom}H${o.left}Z${inside}`,defs=`<defs><clipPath id="insideThree"><path d="${inside}"/></clipPath><clipPath id="outsideThree"><path d="${outside}" fill-rule="evenodd" clip-rule="evenodd"/></clipPath></defs>`,zones=[['leftCorner',`M${o.left} ${o.top}H${p.left}V${z.cornerZoneBottomY}H${o.left}Z`,'outsideThree',(o.left+t.leftX)/2,91],['rightCorner',`M${p.right} ${o.top}H${o.right}V${z.cornerZoneBottomY}H${p.right}Z`,'outsideThree',(o.right+t.rightX)/2,91],['left3',`M${o.left} ${z.cornerZoneBottomY}H${p.left}V${aPaintL.y}L${pt(deepL)}H${o.left}Z`,'outsideThree',108,350],['top3',`M${pt(aPaintL)}H${aPaintR.x}L${pt(deepR)}H${deepL.x}Z`,'outsideThree',250,350],['right3',`M${p.right} ${z.cornerZoneBottomY}H${o.right}V${o.bottom}H${deepR.x}L${pt(aPaintR)}V${z.cornerZoneBottomY}Z`,'outsideThree',392,350],['leftBaseline',`M${o.left} ${o.top}H${p.left}V${z.sideSplitY}H${o.left}Z`,'insideThree',149,104],['paint',`M${p.left} ${p.top}H${p.right}V${p.ftLineY}H${p.left}Z`,'',250,76],['rightBaseline',`M${p.right} ${o.top}H${o.right}V${z.sideSplitY}H${p.right}Z`,'insideThree',351,104],['leftMid',`M${o.left} ${z.sideSplitY}H${p.left}V${o.bottom}H${o.left}Z`,'insideThree',166,216],['centerMid',`M${p.left} ${p.ftLineY}H${p.right}V${o.bottom}H${p.left}Z`,'insideThree',250,229],['rightMid',`M${p.right} ${z.sideSplitY}H${o.right}V${o.bottom}H${p.right}Z`,'insideThree',334,216]],labels=[];let paintRendered=blendedColor('#e8e5de',.22);const paths=zones.map(([id,path,clip,x,y])=>{const zoneStats=stats(groups[id]||[]),delta=zoneStats.total?(zoneStats.pct-all.pct)/45:0,rawFill=zoneStats.total?colorScale(delta):'#e8e5de',alpha=zoneStats.total?.68:.22,fill=blendedColor(rawFill,alpha),size=id.includes('Corner')?10:13;if(id==='paint')paintRendered=fill;if(zoneStats.total)labels.push(textNode(x,y,`${Math.round(zoneStats.pct)}%`,`${zoneStats.makes}/${zoneStats.total}`,COLORS.ink,size));return `<path d="${path}" fill="${fill}"${clip?` clip-path="url(#${clip})"`:''}/>`}).join('');const court=`<rect width="500" height="470" fill="#fbf5df"/>${defs}${paths}<image href="${COURT_ASSET}" x="0" y="0" width="500" height="470" preserveAspectRatio="xMidYMid slice" style="mix-blend-mode:multiply"/>`,hoopEraser=`<rect x="212" y="57" width="76" height="46" rx="12" fill="${paintRendered}"/>`,dividers=`<path d="M${o.left} ${z.cornerZoneBottomY}H${aCornerL.x}M${aCornerR.x} ${z.cornerZoneBottomY}H${o.right}M${aSideL.x} ${z.sideSplitY}H${p.left}M${p.right} ${z.sideSplitY}H${aSideR.x}M${p.left} ${p.ftLineY}V${aPaintL.y}M${p.right} ${p.ftLineY}V${aPaintR.y}M${pt(aPaintL)}L${pt(deepL)}M${pt(aPaintR)}L${pt(deepR)}" fill="none" stroke="#18201d" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" opacity=".72" vector-effect="non-scaling-stroke"/>`;$('#zonesChart').innerHTML=court+hoopEraser+dividers+labels.join('')}
+    function renderAnalysis(){const all=stats();$('#finalPct').textContent=`${all.pct.toFixed(1)}%`;$('#finalMeta').textContent=`${all.makes} makes · ${all.total} attempts`;$('#volumeGrade').innerHTML=`<span class="streak-grid"><span>Longest streak</span><b>${longestMakeStreak()}</b><span>Longest drought</span><b>${longestMissStreak()}</b></span>`;const types=['layup','midrange','three','freeThrow'];$('#breakdown').innerHTML=types.map(t=>{const s=stats(state.shots.filter(x=>x.type===t));return `<div class="break-card"><span>${labels[t]}</span><strong>${s.total?s.pct.toFixed(0)+'%':'—'}</strong><small>${s.makes} / ${s.total}</small></div>`}).join('');renderScatter();renderZones()}
+    function showAnalysis(){renderAnalysis();$('#trackerView').classList.add('hidden');$('#analysisView').classList.remove('hidden');scrollTo(0,0)}
+    function serializedSvg(svg){const clone=svg.cloneNode(true);clone.setAttribute('xmlns','http://www.w3.org/2000/svg');const style=document.createElementNS('http://www.w3.org/2000/svg','style');style.textContent='.court-line{fill:none;stroke:#fffdf8;stroke-width:3;vector-effect:non-scaling-stroke;opacity:.92}.wood-line{stroke:#c5ad87;stroke-width:1;opacity:.34}';clone.prepend(style);return new XMLSerializer().serializeToString(clone)}
+    function svgToPng(svg,name){const data=serializedSvg(svg),img=new Image(),url=URL.createObjectURL(new Blob([data],{type:'image/svg+xml'}));img.onload=()=>{const c=document.createElement('canvas');c.width=1000;c.height=940;const x=c.getContext('2d');x.fillStyle=COLORS.paper;x.fillRect(0,0,c.width,c.height);x.drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(url);c.toBlob(blob=>downloadBlob(blob,name),'image/png')};img.src=url}
+    function downloadBlob(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);toast('Image saved')}
+    $$('[data-chart]').forEach(b=>b.onclick=()=>svgToPng($('#'+b.dataset.chart+'Chart'),`shot-tracker-${b.dataset.chart}.png`));
+    $('#summaryBtn').onclick=()=>{const s=stats(),w=1080,h=1350,c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d'),logo=new Image();logo.onload=draw;logo.onerror=draw;logo.src=LOGO_ASSET;function draw(){x.fillStyle=COLORS.paper;x.fillRect(0,0,w,h);if(logo.complete&&logo.naturalWidth)x.drawImage(logo,58,30,78,78);x.fillStyle=COLORS.ink;x.font='900 66px system-ui';x.fillText('SHOT PROFILE',150,90);x.beginPath();x.roundRect(55,125,970,240,44);x.fillStyle='#e7f0eb';x.fill();x.lineWidth=3;x.strokeStyle='#d4e3da';x.stroke();x.fillStyle=COLORS.green;x.font='900 142px system-ui';x.fillText(`${s.pct.toFixed(1)}%`,90,285);x.font='700 32px system-ui';x.fillStyle='#6f7773';x.fillText(`${s.makes} makes · ${s.total} attempts`,95,333);const svg=$('#zonesChart'),data=serializedSvg(svg),img=new Image(),url=URL.createObjectURL(new Blob([data],{type:'image/svg+xml'}));img.onload=()=>{x.beginPath();x.roundRect(55,380,970,910,36);x.fillStyle='#fbf5df';x.fill();x.lineWidth=3;x.strokeStyle='#ead99d';x.stroke();x.drawImage(img,70,395,940,884);x.fillStyle=COLORS.ink;x.font='800 25px system-ui';x.fillText(`SHOT TRACKER · ${new Date(state.startedAt).toLocaleDateString()}`,70,1330);c.toBlob(b=>downloadBlob(b,'my-shooting-session.png'),'image/png');URL.revokeObjectURL(url)};img.src=url}};
+    function toast(msg){$('#toast').textContent=msg;$('#toast').classList.add('show');setTimeout(()=>$('#toast').classList.remove('show'),1600)}
+    renderTracker();timer=setInterval(updateClock,1000);if(state.ended)showAnalysis();fetch('assets/half-court-map.png').then(r=>r.blob()).then(blob=>new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(blob)})).then(data=>{COURT_ASSET=data;renderTracker();if(!$('#analysisView').classList.contains('hidden'))renderAnalysis()}).catch(()=>{});
   </script>
 </body>
 </html>

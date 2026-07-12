@@ -1,0 +1,13 @@
+.git
+.git/**
+.wrangler
+.wrangler/**
+.agents
+.agents/**
+.codex
+.codex/**
+.DS_Store
+**/.DS_Store
+HANDOFF.md
+README.md
+wrangler.jsonc
