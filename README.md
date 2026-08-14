@@ -1,12 +1,10 @@
 # Shot Tracker
 
-A mobile-first tool for logging where shots happen and understanding the resulting shot profile.
+A mobile tool to log shots in a basketball shooting session. Visualize efficiency from each zone and identify weak spots.
 
 ## Access Site
 
 [https://shooters.tkimify.com/](https://shooters.tkimify.com/)
-
-Alternate Workers URL: [https://shot-tracker.timmykim07.workers.dev/](https://shot-tracker.timmykim07.workers.dev/)
 
 ## Features
 
